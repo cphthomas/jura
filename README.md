@@ -1,63 +1,59 @@
----
-title: README
----
-# Gitbook-NetlifyCMS
+# gitbook-plugin-page-toc
 
-![](https://img.shields.io/github/license/DemoMacro/Gitbook-NetlifyCMS.svg?style=flat)
-  
-> This is a book written in Gitbook and hosted with Netlify.
+This plugin adds a table of contents (TOC) to each page in your Gitbook.
+You can set whether the TOC appears on all pages by default, and you can enable or disable the TOC on individual pages to override the default.
 
-<!-- Markdown snippet -->
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/DemoMacro/Hexo-NetlifyCMS/)
+![](https://raw.githubusercontent.com/aleung/gitbook-plugin-page-toc/master/doc/screenshot-1.png)
 
-### Quick Start
+## Install
 
-Let's get started with Gitbook-NetlifyCMS step by step.
+Add the plugin to your `book.json`:
 
-### [Fork](https://github.com/DemoMacro/Gitbook-NetlifyCMS/fork) on Github
-
-More info: [GitBook Help Center](https://help.gitbook.com/)
-
-### [Deploy](https://app.netlify.com/start/deploy?repository=https://github.com/DemoMacro/Gitbook-NetlifyCMS) to Netlify
-
-```
-Build command: gitbook build
-Publish directory: _book
-```
-More info: [A Step-by-Step Guide: GitBook on Netlify](https://www.netlify.com/blog/2015/12/08/a-step-by-step-guide-gitbook-on-netlify/)
-
-### Enable Identity and Git Gateway
-
-Netlify's Identity and Git Gateway services allow you to manage CMS admin users for your site without requiring them to have an account with your Git host or commit access on your repo. From your site dashboard on Netlify:
-
-1. Go to **Settings > Identity**, and select **Enable Identity service**.
-2. Under **Registration preferences**, select **Open** or **Invite only**. In most cases, you want only invited users to access your CMS, but if you're just experimenting, you can leave it open for convenience.
-3. If you'd like to allow one-click login with services like Google and GitHub, check the boxes next to the services you'd like to use, under **External providers**.
-4. Scroll down to **Services > Git Gateway**, and click **Enable Git Gateway**. This authenticates with your Git host and generates an API access token. In this case, we're leaving the **Roles** field blank, which means any logged in user may access the CMS. For information on changing this, check the [Netlify Identity documentation](https://www.netlify.com/docs/identity/).
-
-### Add the Netlify Identity Widget
-
-You'll need to add this to the ```<head>``` of your CMS index page at /admin/index.html, as well as the ```<head>``` of your site's main index page.We could include the script in your site using Netlify's Script Injection feature;
-
-```html
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-```
- Add the following script before the closing body tag of your site's main index page using Netlify's Script Injection feature.
-
-```html
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
+``` json
+{
+  "plugins": [ "page-toc" ],
+  "pluginsConfig": {
+    "page-toc": {
+      "selector": ".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4",
+      "position": "before-first",
+      "showByDefault": true
+    }
   }
-</script>
+}
 ```
 
-> You are finished with Gitbook-NetlifyCMS
+## Configuration
 
-> Now you can control site content in https://yoursite.netlify.com/admin/
+- `selector` : CSS selector to select the elements to put anchors on
+  - Default: `.markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4`,
+    which include headings from level 1 to level 4.
+- `position` : Position of TOC
+  - Allowed values:
+    - `before-first` _(default)_ : Before the first heading
+    - `top` : On top of the page
+- `showByDefault`: Whether to show the TOC on all pages by default.
+  - Default:  `true`.
+
+## Use
+
+To show a TOC in one of your pages, either set the `showByDefault` parameter to `true` in your `book.json`, or add the front matter item `showToc: true` to the top of the Markdown file like this:
+```markdown
+---
+showToc: true
+---
+# My interesting page that has a TOC
+```
+
+If you have the `showByDefault` parameter set to `true` and you want to hide the TOC on a page, add the front matter item `showToc: false` to the top of the Markdown file like this:
+```markdown
+---
+showToc: false
+---
+# My interesting page that does not have a TOC
+```
+
+The page-specific front matter overrides the `showByDefault` parameter.
+
+## CSS Customization
+
+The TOC elements have class attribute `.page-toc`. You can override the styles in `styles/website.css`.
