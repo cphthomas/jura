@@ -1,18 +1,16 @@
 ---
 title: README
 ---
-# Gitbook-NetlifyCMS
+# Content
+Will
 
-![](https://img.shields.io/github/license/DemoMacro/Gitbook-NetlifyCMS.svg?style=flat)
-  
-> This is a book written in Gitbook and hosted with Netlify.
+I get some contents
 
-<!-- Markdown snippet -->
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/DemoMacro/Hexo-NetlifyCMS/)
+### Quick 
 
-### Quick Start
+## Subchap
 
-Let's get started with Gitbook-NetlifyCMS step by step.
+test 
 
 ### [Fork](https://github.com/DemoMacro/Gitbook-NetlifyCMS/fork) on Github
 
