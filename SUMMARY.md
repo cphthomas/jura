@@ -1,5 +1,5 @@
 ---
-title: NetlifyBook
+title: SUMMARY.md
 ---
 # Summary
 
