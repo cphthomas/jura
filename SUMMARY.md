@@ -1,5 +1,5 @@
 ---
-title: SUMMARY
+title: SUMMARY.md
 ---
 # Summary
 
